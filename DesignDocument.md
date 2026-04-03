@@ -162,9 +162,22 @@ Write a test (in english) that you can picture for the class diagram you have cr
 
 You should feel free to number your brainstorm. 
 
-1. Test 1..
-2. Test 2..
-
+1. **controllerListStartsEmpty** — a freshly constructed controller should have `getListCount()` return 0 before any games are added.
+2. **controllerAddGameByName** — after calling `applyFilter` to get a result set, calling `addToList` with a valid game name should increase the list count by one.
+3. **controllerAddAllGamesFromFilter** — calling `addToList("all")` should add every game in the current filtered result to the personal list.
+4. **controllerAddGameByPosition** — calling `addToList("1")` should add the first game from the current filtered result to the personal list.
+5. **controllerAddInvalidNameThrowsException** — calling `addToList` with a name that does not exist in the current filter should throw an `IllegalArgumentException`.
+6. **controllerRemoveGameByName** — after adding a game, calling `removeFromList` with its name should remove it and reduce the count by one.
+7. **controllerRemoveGameNotInListThrows** — calling `removeFromList` with a name that was never added should throw an `IllegalArgumentException`.
+8. **controllerClearRemovesAllGames** — after adding multiple games, calling `clearList()` should leave `getListCount()` at zero.
+9. **controllerListNamesAlphabetical** — `getListNames()` should always return names sorted A-Z, regardless of the order games were added.
+10. **controllerNoDuplicatesInList** — adding the same game twice should not increase the count beyond one.
+11. **controllerEmptyFilterReturnsFullCollection** — calling `applyFilter("", NAME, true)` on a fresh controller should return all games sorted A-Z by name.
+12. **controllerFilterByMinPlayersFloor** — `applyFilter("minPlayers>=4", NAME, true)` should return only games where `minPlayers` is 4 or more.
+13. **controllerFilterByNamePartialMatch** — `applyFilter("name~=catan", NAME, true)` should return only games whose name contains "catan", case-insensitively.
+14. **controllerFiltersStackWithoutReset** — calling `applyFilter` twice in a row without calling `resetFilter` should narrow the results further each time.
+15. **controllerResetRestoresFullCollection** — after applying a narrow filter, calling `resetFilter()` followed by `applyFilter("")` should return the original total game count.
+16. **controllerSortDescendingPutsHighestFirst** — `applyFilter("", RATING, false)` should return the highest-rated game as the first element in the list.
 
 
 
