@@ -8,7 +8,145 @@ This document is meant to provide a tool for you to demonstrate the design proce
 
 Place your class diagram below. If you are using the mermaid markdown, you may include the code for it here. For a reminder on the mermaid syntax, you may go [here](https://mermaid.js.org/syntax/classDiagram.html)
 
+```mermaid
+classDiagram
+    direction TB
 
+%% ── ENTRY POINT ───────────────────────────────────────────────────────────
+    class BGArenaPlanner {
+        +main(String[] args)$
+    }
+
+%% ── VIEW LAYER ────────────────────────────────────────────────────────────
+    class JFrame {
+        <<Swing>>
+    }
+
+    class GUIView {
+        -GUIController controller
+        +GUIView(GUIController controller)
+    }
+
+    class ConsoleApp {
+        -IPlanner planner
+        -IGameList gameList
+        +ConsoleApp(IGameList gameList, IPlanner planner)
+        +start() void
+    }
+
+%% ── CONTROLLER LAYER ──────────────────────────────────────────────────────
+    class GUIController {
+        -IPlanner planner
+        -IGameList gameList
+        -List~BoardGame~ currentFiltered
+        +GUIController(IPlanner planner, IGameList gameList)
+        +applyFilter(String filter, GameData sortOn, boolean ascending) List~BoardGame~
+        +resetFilter() void
+        +addToList(String str) void
+        +removeFromList(String str) void
+        +clearList() void
+        +getListNames() List~String~
+        +getListCount() int
+        +saveList(String filename) void
+    }
+
+%% ── MODEL LAYER ───────────────────────────────────────────────────────────
+    class IPlanner {
+        <<interface>>
+        +filter(String filter) Stream~BoardGame~
+        +filter(String filter, GameData sortOn, boolean ascending) Stream~BoardGame~
+        +reset() void
+    }
+
+    class IGameList {
+        <<interface>>
+        +addToList(String str, Stream~BoardGame~ filtered) void
+        +removeFromList(String str) void
+        +getGameNames() List~String~
+        +clear() void
+        +count() int
+        +saveGame(String filename) void
+    }
+
+    class Planner {
+        -Set~BoardGame~ allGames
+        -Set~BoardGame~ filteredGames
+        +Planner(Set~BoardGame~ games)
+    }
+
+    class GameList {
+        -Set~BoardGame~ games
+        +GameList()
+    }
+
+    class BoardGame {
+        -String name
+        -int id
+        -int minPlayers
+        -int maxPlayers
+        -double averageRating
+        -double difficulty
+        -int rank
+        +getName() String
+        +getRating() double
+        +getMinPlayers() int
+        +getMaxPlayers() int
+    }
+
+    class GameData {
+        <<enumeration>>
+        NAME
+        RATING
+        DIFFICULTY
+        RANK
+        MIN_PLAYERS
+        MAX_PLAYERS
+        MIN_TIME
+        MAX_TIME
+        YEAR
+        +getColumnName() String
+        +fromString(String name)$ GameData
+    }
+
+    class GamesLoader {
+        +loadGamesFile(String filename)$ Set~BoardGame~
+    }
+
+%% ── RELATIONSHIPS ─────────────────────────────────────────────────────────
+
+%% Entry point creates everything at startup
+    BGArenaPlanner ..> GUIController  : creates
+    BGArenaPlanner ..> GUIView        : creates
+    BGArenaPlanner ..> ConsoleApp     : creates
+    BGArenaPlanner ..> GamesLoader    : uses
+
+%% GUIView inherits window behavior from JFrame (inheritance)
+    GUIView --|> JFrame
+
+%% GUIView owns its controller (composition — view cannot exist without it)
+    GUIView *-- GUIController         : has
+
+%% ConsoleApp owns its model references (composition)
+    ConsoleApp *-- IPlanner           : has
+    ConsoleApp *-- IGameList          : has
+
+%% GUIController owns its model references (composition)
+    GUIController *-- IPlanner        : has
+    GUIController *-- IGameList       : has
+
+%% GUIController uses BoardGame and GameData as method parameter/return types
+    GUIController ..> BoardGame       : returns List
+    GUIController ..> GameData        : uses
+
+%% Concrete model classes implement their interfaces
+    Planner  ..|> IPlanner            : implements
+    GameList ..|> IGameList           : implements
+
+%% Model stores and operates on BoardGame objects
+    Planner  ..> BoardGame            : stores / filters
+    GameList ..> BoardGame            : stores
+    GamesLoader ..> BoardGame         : creates
+```
 
 ## (INITIAL DESIGN): Tests to Write - Brainstorm
 
