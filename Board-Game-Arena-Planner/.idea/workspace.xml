@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="220b0af4-3cba-493a-8281-02bf2f905eb3" name="Changes" comment="added to readme.md" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Board-Game-Arena-Planner" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Board-Game-Arena-Planner" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="anamahmedshamsi12 &lt;anamahmedshamsi@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;anamahmedshamsi12&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/anamahmedshamsi12/Board-Game-Arena-Planner.git&quot;,
+    &quot;accountId&quot;: &quot;99d3d68b-b7e0-45fe-991f-5a918fc3c087&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3AlDuNjsxNyLLzUJh8mbFbuiEO8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Board-Game-Arena-Planner [:student.BGArenaPlanner.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Board-Game-Arena-Planner.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="BGArenaPlanner" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="student.BGArenaPlanner" />
+      <module name="Board-Game-Arena-Planner.main" />
+      <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.30387.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="220b0af4-3cba-493a-8281-02bf2f905eb3" name="Changes" comment="" />
+      <created>1773158485582</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773158485582</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add files via upload">
+      <option name="closed" value="true" />
+      <created>1773158550615</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1773158550615</updated>
+    </task>
+    <task id="LOCAL-00002" summary="updated README.md">
+      <option name="closed" value="true" />
+      <created>1773158647863</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773158647863</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated DesignDocument.md">
+      <option name="closed" value="true" />
+      <created>1773160494402</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773160494402</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated DesignDocument.md">
+      <option name="closed" value="true" />
+      <created>1773160529378</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773160529378</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added filter.java class">
+      <option name="closed" value="true" />
+      <created>1773161573276</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773161573276</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added filter.java class">
+      <option name="closed" value="true" />
+      <created>1773161593614</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773161593614</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added filter.java class">
+      <option name="closed" value="true" />
+      <created>1773243212252</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1773243212252</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added filter.java class">
+      <option name="closed" value="true" />
+      <created>1773252882647</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773252882647</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added new test">
+      <option name="closed" value="true" />
+      <created>1773253124196</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1773253124196</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added new test">
+      <option name="closed" value="true" />
+      <created>1773253909334</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1773253909334</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added to Report.md">
+      <option name="closed" value="true" />
+      <created>1773356795681</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1773356795681</updated>
+    </task>
+    <task id="LOCAL-00012" summary="report last questions">
+      <option name="closed" value="true" />
+      <created>1773377298246</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1773377298246</updated>
+    </task>
+    <task id="LOCAL-00013" summary="report last questions">
+      <option name="closed" value="true" />
+      <created>1773377354555</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1773377354555</updated>
+    </task>
+    <task id="LOCAL-00014" summary="stylecheck">
+      <option name="closed" value="true" />
+      <created>1773377866862</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1773377866862</updated>
+    </task>
+    <task id="LOCAL-00015" summary="stylecheck">
+      <option name="closed" value="true" />
+      <created>1773378129400</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1773378129400</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added to readme.md">
+      <option name="closed" value="true" />
+      <created>1773516646365</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1773516646365</updated>
+    </task>
+    <task id="LOCAL-00017" summary="added to readme.md">
+      <option name="closed" value="true" />
+      <created>1773516654654</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1773516654654</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated readme.md" />
+    <MESSAGE value="Add files via upload" />
+    <MESSAGE value="updated README.md" />
+    <MESSAGE value="updated DesignDocument.md" />
+    <MESSAGE value="added filter.java test and class" />
+    <MESSAGE value="ran first test successful, created new test and new class" />
+    <MESSAGE value="added filter.java class" />
+    <MESSAGE value="added new test" />
+    <MESSAGE value="added to Report.md" />
+    <MESSAGE value="report last questions" />
+    <MESSAGE value="stylecheck" />
+    <MESSAGE value="added to readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="added to readme.md" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/TestPlanner.java</url>
+          <line>153</line>
+          <properties class="TestPlanner" method="testGameListStartsEmpty">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

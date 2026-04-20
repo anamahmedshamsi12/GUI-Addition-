@@ -1,0 +1,396 @@
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.stream.Stream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import student.BoardGame;
+import student.GameList;
+import student.IGameList;
+import student.IPlanner;
+import student.GameData;
+import student.Planner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+
+/**
+ * JUnit test for the Planner class.
+ *
+ * Just a sample test to get you started, also using
+ * setup to help out.
+ *
+ * I am following TDD here -- I write one test at a time, run it,
+ * implement just enough code to make it pass, then move on to the next.
+ * Tests are organized by what they are testing: name filters first,
+ * then numeric filters, and more to come as the program grows.
+ *
+ * @author CS5004 Student
+ * @version 1.0
+ */
+public class TestPlanner {
+
+    /**
+     * Shared set of board games used across all tests.
+     * Created once before any tests run to avoid repeating setup in every test.
+     * I chose games with varied names, player counts, ratings, and years so I
+     * can meaningfully test every filter column.
+     */
+    static Set<BoardGame> games;
+
+    /**
+     * Sets up the shared game dataset before any tests run.
+     * Uses @BeforeAll so this only runs once, not before every single test.
+     *
+     * BoardGame constructor order:
+     * name, id, minPlayers, maxPlayers, minPlayTime, maxPlayTime,
+     * difficulty, rank, averageRating, yearPublished
+     */
+    @BeforeAll
+    public static void setup() {
+        games = new HashSet<>();
+        games.add(new BoardGame("17 days", 6, 1, 8, 70, 70, 9.0, 600, 9.0, 2005));
+        games.add(new BoardGame("Chess", 7, 2, 2, 10, 20, 10.0, 700, 10.0, 2006));
+        games.add(new BoardGame("Go", 1, 2, 5, 30, 30, 8.0, 100, 7.5, 2000));
+        games.add(new BoardGame("Go Fish", 2, 2, 10, 20, 120, 3.0, 200, 6.5, 2001));
+        games.add(new BoardGame("golang", 4, 2, 7, 50, 55, 7.0, 400, 9.5, 2003));
+        games.add(new BoardGame("GoRami", 3, 6, 6, 40, 42, 5.0, 300, 8.5, 2002));
+        games.add(new BoardGame("Monopoly", 8, 6, 10, 20, 1000, 1.0, 800, 5.0, 2007));
+        games.add(new BoardGame("Tucano", 5, 10, 20, 60, 90, 6.0, 500, 8.0, 2004));
+    }
+
+    /**
+     * Test: filter by exact name match using ==.
+     *
+     * "name == Go" should return exactly 1 game and that game's name should be "Go".
+     * This tests that the == operator works for string columns and that the match
+     * is exact -- it should NOT return "Go Fish", "golang", or "GoRami".
+     */
+    @Test
+    public void testFilterName() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("name == Go").toList();
+        assertEquals(1, filtered.size());
+        assertEquals("Go", filtered.get(0).getName());
+    }
+
+    /**
+     * Test: filter by minPlayers greater than 5 using >.
+     *
+     * Only GoRami (minPlayers=6), Monopoly (minPlayers=6), and Tucano (minPlayers=10)
+     * have more than 5 minimum players, so we expect exactly 3 results.
+     * This tests that numeric filtering works with the > operator.
+     */
+    @Test
+    public void testFilterMinPlayersGreaterThan() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers > 5").toList();
+        assertEquals(3, filtered.size());
+    }
+
+    /**
+     * Test: filter by rating greater than or equal to 9.0 using >=.
+     *
+     * "17 days" (rating=9.0), "Chess" (rating=10.0), and "golang" (rating=9.5)
+     * all have ratings >= 9.0, so we expect exactly 3 results.
+     * This tests that numeric filtering works with the >= operator and
+     * that decimal values are handled correctly (9.0 should be included, not just > 9.0).
+     */
+    @Test
+    public void testFilterRatingGreaterThanOrEqual() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("rating >= 9.0").toList();
+        assertEquals(3, filtered.size());
+    }
+
+    /**
+     * Test: comma-separated filters are ANDed together.
+     *
+     * "minPlayers > 1, maxPlayers < 6" should return only games where both
+     * conditions are true. In our dataset that is Go (2-5) and Chess (2-2).
+     */
+    @Test
+    public void testFilterMultipleFiltersAnd() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("minPlayers > 1, maxPlayers < 6").toList();
+        assertEquals(2, filtered.size());
+    }
+
+    /**
+     * Test: sorting by rating descending puts the highest rated game first.
+     *
+     * Chess has a rating of 10.0 which is the highest in our dataset,
+     * so it should appear first when sorting by RATING descending.
+     */
+    @Test
+    public void testFilterSortByRatingDescending() {
+        IPlanner planner = new Planner(games);
+        List<BoardGame> filtered = planner.filter("", GameData.RATING, false).toList();
+        assertEquals("Chess", filtered.get(0).getName());
+    }
+
+    /**
+     * Test: reset restores the full game collection after filtering.
+     *
+     * After filtering down to one game and calling reset(), the next filter
+     * should search across all 8 games again.
+     */
+    @Test
+    public void testResetRestoresAllGames() {
+        IPlanner planner = new Planner(games);
+        planner.filter("name == Go");
+        planner.reset();
+        List<BoardGame> result = planner.filter("").toList();
+        assertEquals(8, result.size());
+    }
+
+    /**
+     * Test: a newly constructed GameList should have a count of 0.
+     */
+    @Test
+    public void testGameListStartsEmpty() {
+        IGameList list = new GameList();
+        assertEquals(0, list.count());
+    }
+
+    /**
+     * Test: addToList("all", stream) adds every game in the stream.
+     */
+    @Test
+    public void testAddAllToList() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        assertEquals(4, list.count());
+    }
+
+    /**
+     * Test: addToList with a game name adds just that one matching game.
+     */
+    @Test
+    public void testAddByName() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("");
+        list.addToList("Chess", stream);
+        assertEquals(1, list.count());
+        assertEquals("Chess", list.getGameNames().get(0));
+    }
+
+    /**
+     * Test: addToList with an index adds the game at that 1-based position.
+     */
+    @Test
+    public void testAddByIndex() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("1", stream);
+        assertEquals(1, list.count());
+        assertEquals("Go", list.getGameNames().get(0));
+    }
+
+    /**
+     * Test: addToList with a range adds the correct number of games.
+     */
+    @Test
+    public void testAddByRange() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("1-3", stream);
+        assertEquals(3, list.count());
+    }
+
+    /**
+     * Test: getGameNames returns names in ascending case-insensitive alphabetical order.
+     */
+    @Test
+    public void testGetGameNamesSortedOrder() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        List<String> names = list.getGameNames();
+        assertEquals("Go", names.get(0));
+        assertEquals("Go Fish", names.get(1));
+        assertEquals("golang", names.get(2));
+        assertEquals("GoRami", names.get(3));
+    }
+
+    /**
+     * Test: removeFromList by name removes only the matching game.
+     */
+    @Test
+    public void testRemoveByName() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        list.removeFromList("Go");
+        assertEquals(3, list.count());
+        assertFalse(list.getGameNames().contains("Go"));
+    }
+
+    /**
+     * Test: removeFromList by index removes the game at that position.
+     */
+    @Test
+    public void testRemoveByIndex() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        list.removeFromList("2");
+        assertEquals(3, list.count());
+        assertFalse(list.getGameNames().contains("Go Fish"));
+    }
+
+    /**
+     * Test: removeFromList with a range removes all games in that range.
+     */
+    @Test
+    public void testRemoveByRange() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        list.removeFromList("1-2");
+        assertEquals(2, list.count());
+        assertFalse(list.getGameNames().contains("Go"));
+        assertFalse(list.getGameNames().contains("Go Fish"));
+    }
+
+    /**
+     * Test: addToList with an out-of-range index throws IllegalArgumentException.
+     */
+    @Test
+    public void testAddByIndexOutOfRangeThrows() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        assertThrows(IllegalArgumentException.class, () -> {
+            list.addToList("10", stream);
+        });
+    }
+
+    /**
+     * Test: addToList with a name not in the filtered stream throws IllegalArgumentException.
+     */
+    @Test
+    public void testAddByNameNotFoundThrows() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        assertThrows(IllegalArgumentException.class, () -> {
+            list.addToList("Chess", stream);
+        });
+    }
+
+    /**
+     * Test: removeFromList with a name not in the list throws IllegalArgumentException.
+     */
+    @Test
+    public void testRemoveByNameNotFoundThrows() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        assertThrows(IllegalArgumentException.class, () -> {
+            list.removeFromList("Chess");
+        });
+    }
+
+    /**
+     * Test: removeFromList on an empty list throws IllegalArgumentException.
+     */
+    @Test
+    public void testRemoveFromEmptyListThrows() {
+        IGameList list = new GameList();
+        assertThrows(IllegalArgumentException.class, () -> {
+            list.removeFromList("1");
+        });
+    }
+
+    /**
+     * Test: clear() removes all games from the list.
+     */
+    @Test
+    public void testClear() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("");
+        list.addToList("all", stream);
+        list.clear();
+        assertEquals(0, list.count());
+    }
+
+    /**
+     * Test: saveGame writes game names to a file in sorted order.
+     *
+     * After saving, reading the file back should produce the same list
+     * as getGameNames().
+     */
+    @Test
+    public void testSaveGame() throws Exception {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        String filename = "test_save_output.txt";
+        list.saveGame(filename);
+        List<String> lines = Files.readAllLines(Paths.get(filename));
+        assertEquals(list.getGameNames(), lines);
+    }
+
+    /**
+     * Test: adding the same game twice does not increase the count.
+     *
+     * Since GameList uses a Set, duplicates should be silently ignored.
+     */
+    @Test
+    public void testAddDuplicateDoesNotIncreaseCount() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream1 = planner.filter("name == Go");
+        list.addToList("all", stream1);
+        planner.reset();
+        Stream<BoardGame> stream2 = planner.filter("name == Go");
+        list.addToList("all", stream2);
+        assertEquals(1, list.count());
+    }
+
+    /**
+     * Test: addToList with lowercase name still finds the correct game.
+     *
+     * Name matching should be case-insensitive so "chess" finds "Chess".
+     */
+    @Test
+    public void testAddByNameCaseInsensitive() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("");
+        list.addToList("chess", stream);
+        assertEquals(1, list.count());
+        assertEquals("Chess", list.getGameNames().get(0));
+    }
+
+    /**
+     * Test: removeFromList with an inverted range (end less than start) throws.
+     */
+    @Test
+    public void testInvertedRangeThrows() {
+        IPlanner planner = new Planner(games);
+        IGameList list = new GameList();
+        Stream<BoardGame> stream = planner.filter("name ~= go");
+        list.addToList("all", stream);
+        assertThrows(IllegalArgumentException.class, () -> {
+            list.removeFromList("3-1");
+        });
+    }
+}
